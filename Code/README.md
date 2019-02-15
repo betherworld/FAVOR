@@ -32,7 +32,6 @@ cd BETH19
 ```
 truffle compile --all
 truffle migrate --reset
-(npm rebuild if problems with liteserver)
 npm run dev
 ```
 

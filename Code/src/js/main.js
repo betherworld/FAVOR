@@ -74,7 +74,7 @@ App = {
                 // bind button presses
                 App.bindButtonPresses();
                 // init page elements
-                App.initPage(instance);
+                App.initPage();
             }).catch(App.defaultErrorHandler);
         });
     },
@@ -164,7 +164,7 @@ App = {
         });
         // $(document).on('click', '.btn-create-offer', App.createOffer);
         $(document).on('click', '.btn-accept-request', () => {
-            App.acceptRequest(this.id);
+            App.acceptRequest(App.billboard[0].id);
         });
         // $(document).on('click', '.btn-accept-fffer', App.acceptOffer);
         // $(document).on('click', '.btn-vote-cancel', App.voteCancel);
@@ -184,36 +184,42 @@ App = {
         console.log("in App.onFavorAccepted(", favor_id, ")");
         // todo
         console.log("Not implemented");
+        alert("Favor Accepted!");
     },
 
     onFavorCancel: function(favor_id) {
         console.log("in App.onFavorCancel(", favor_id, ")");
         // todo
         console.log("Not implemented");
+        alert("Favor Canceled!");
     },
 
     onFavorVoteCancel: function(favor_id) {
         console.log("in App.onFavorVoteCancel(", favor_id, ")");
         // todo
         console.log("Not implemented");
+        alert("Voted for Cancellation!");
     },
 
     onFavorDone: function(favor_id) {
         console.log("in App.onFavorDone(", favor_id, ")");
         // todo
         console.log("Not implemented");
+        alert("Favor Complete!");
     },
 
     onFavorVoteDone: function(favor_id) {
         console.log("in App.onFavorVoteDone(", favor_id, ")");
         // todo
         console.log("Not implemented");
+        alert("Voted for Completion!");
     },
 
     onFavorCreated: function(favor_id) {
         console.log("in App.onFavorCreated(", favor_id, ")");
         // todo
         console.log("Not implemented");
+        alert("Favor Created!");
     },
 
     // ==================== contract calls ====================
@@ -250,7 +256,7 @@ App = {
     demoPopulateBillboard: async function() {
         console.log("in App.demoPopulateBillboard()");
         App.createRequest({"cost": 1, "title": "Title 1", "location": "Location 1", "description": "Description 1", "category": 1});
-        App.createOffer({"cost": 2, "title": "Title 2", "location": "Location 2", "description": "Description 2", "category": 2});
+        App.createRequest({"cost": 2, "title": "Title 2", "location": "Location 2", "description": "Description 2", "category": 2});
     },
 
     // resets the billboard and starts populating it
