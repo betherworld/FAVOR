@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Favors</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" >
+		<link rel="stylesheet" href="css/cover.css" >
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+		 <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" ></script>
+	</head>
+
+	<body class="text-center">
+		<div class="main-content cover-container d-flex w-100 h-100 mx-auto flex-column">
+			<header class="masthead mb-auto p-3">
+				<div class="inner">
+					<h3 class="masthead-brand">Favor</h3>
+					<nav class="nav nav-masthead justify-content-center">
+						<a class="nav-link" href="#DoAFavor">Do a Favor</a>
+						<a class="nav-link" href="#MyFavors">My Favors</a>
+						<a class="nav-link" href="#MyRequests">My Requests</a>
+						<span class="nav-link btn-get-user-balance"><span id="balance"></span><i class="far fa-smile-beam"> </i></span>
+					</nav>
+				</div>
+			</header>
+
+		<main role="main" class="inner cover">
+
+			<div class="accept_listing page pt-5 pb-5 text-left" id="my_favors">
+				<h4 class="display-4 mt-5 mb-5">My Favors</h4>
+				<div class="card listing text-left mb-1 mt-2">
+					<div class="card-body">
+						<h5 class="card-title">Help my son write an essay</h5>
+						<p class="mb-2 text-muted text-right">1 <i class="far fa-smile-beam"></i></p>
+
+						<p class="mb-2 text-muted text-right">
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<h6 class="card-subtitle mb-2 text-muted">900 m</h6>
+						<p class="card-text"> Lorem Ipsum</p>
+
+						<div class="favor-state" id="favor_running">
+							<div class="alert alert-primary">
+								<h5>Ongoing...</h5>
+								<a href="#" class="btn btn-secondary">Favor completed!</a>
+								<a href="#" class="btn btn-secondary">Abort Favor!</a>
+							</div>
+						</div>
+					</div>
+				</div>
+					<div class="request">
+					</div>
+
+
+			</div>
+			<div class="accept_listing page pt-5 pb-5 text-left" id="my_requests">
+				<h4 class="display-4 mt-5 mb-5">My Requests</h4>
+                <a href="" class="btn btn-warning btn-demo-buy-token">Buy Demo Token</a>
+                <a href="" class="btn btn-warning btn-demo-buy-token btn-demo-populate-billboard">Demo Populate Billboard</a>
+				<h4 class="display-4 mt-5 mb-5 btn-create-request">Ask for a favor</h4>
+				<form>
+					<div class="form-group">
+						<label for="inputTitle">Title</label>
+						<input type="text" class="form-control" id="inputTitle" aria-describedby="emailHelp" placeholder="Use a short title">
+						<small id="titleHelp" class="form-text text-muted">Max 30 characters</small>
+					</div>
+					<div class="form-group">
+						<label for="inputTitle">Location</label>
+						<input type="text" class="form-control" id="inputLocation" >
+					</div>
+					<div class="form-group">
+						<label for="inputCost">inputCost</label>
+						<select class="form-control" id="inputCost">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="inputCategory">Category</label>
+						<select class="form-control" id="inputCategory">
+							<option value="1">Caregiving</option>
+							<option value="2">Driving</option>
+							<option value="3">Company</option>
+							<option value="4">Physical</option>
+							<option value="5">Academic</option>
+							<option value="6">Specialized</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="inputDescription">Description</label>
+						<textarea class="form-control" id="inputDescription" placeholder="Give a concise description of the favor you're asking for"></textarea>
+					</div>
+
+					<div class="form-group">
+						<label for="reputationRequired">Reputation requirement</label>
+						<div class="form-group custom-radio">
+							<input type="radio" name=reputationRequired class="form-check-input" id="exampleCheck1" checked="checked">
+							<label class="form-check-label" for="exampleCheck1"><i class="far fa-star"></i> <i class="far fa-star"></i> <i class="fas fa-star"></i></label>
+						</div>
+						<div class="form-group custom-radio">
+							<input type="radio" name=reputationRequired class="form-check-input" id="exampleCheck1">
+							<label class="form-check-label" for="exampleCheck1"><i class="far fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i></label>
+						</div>
+						<div class="form-group custom-radio">
+							<input type="radio" name=reputationRequired class="form-check-input" id="exampleCheck1">
+							<label class="form-check-label" for="exampleCheck1"><i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i></label>
+						</div>
+					</div>
+					<button type="createListing" class="btn btn-favor">Create favor request</button>
+				</form>
+			</div>
+
+			<div class="apply_for_listing page pt-5 pb-5 text-left" id="apply_for_favor">
+					<h4 class="display-4 mt-5 mb-5">Favor</h4>
+			</div>
+
+			<div class="create_listing page pt-5 pb-5" id="request_favor">
+
+
+			</div>
+
+			<div class="open_listings page pt-5 pb-5" id="do_a_favor">
+				<h4 class="display-4 mt-5 mb-5">Do someone a Favor!</h4>
+				<!-- Listings go here -->
+			</div>
+
+		</main>
+
+
+			</div>
+			<script src="js/main.js"></script>
+			<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+			<!-- Include all compiled plugins (below), or include individual files as needed -->
+			<script src="js/bootstrap.min.js"></script>
+			<script src="js/web3.min.js"></script>
+			<script src="js/truffle-contract.js"></script>
+		</body>
+
+	<div id="listingTemplate" class="d-none">
+		<div class="card listing text-left mb-1 mt-2 page">
+			<div class="card-body">
+				<h5 class="card-title listingTitle" >Water my plants</h5>
+				<p class="mb-2 text-muted text-right listingPrice">1 <i class="far fa-smile-beam"></i></p>
+
+				<p class="mb-2 text-muted text-right listingReputation">
+				<i class="far fa-star"></i>
+				<i class="far fa-star"></i>
+				<i class="fas fa-star"></i>
+				<h6 class="card-subtitle mb-2 text-muted listingDistance">400 m</h6>
+				<p class="card-text listingDescription"></p>
+				<a href="#Apply/" class="card-link btn btn-favor">I'll do this!</a>
+			</div>
+		</div>
+	</div>
+	<div id="favorApplicationTemplate" class="d-none">
+		<div class="card listing text-left mb-1 mt-2 page">
+			<div class="card-body">
+				<h5 class="card-title listingTitle" >Water my plants</h5>
+				<p class="mb-2 text-muted text-right listingPrice">1 <i class="far fa-smile-beam"></i></p>
+
+				<p class="mb-2 text-muted text-right listingReputation">
+				<i class="far fa-star"></i>
+				<i class="far fa-star"></i>
+				<i class="fas fa-star"></i>
+				<h6 class="card-subtitle mb-2 text-muted listingDistance">400 m</h6>
+				<p class="card-text listingDescription"></p>
+				<a href="#Apply/" class="card-link btn btn-favor">Apply!</a>
+			</div>
+		</div>
+	</div>
+	<div id="RequestTemplate" class="d-none">
+		<div class="card listing text-left mb-1 mt-2 page">
+			<div class="card-body">
+				<h5 class="card-title listingTitle" >Water my plants</h5>
+				<p class="mb-2 text-muted text-right listingPrice">1 <i class="far fa-smile-beam"></i></p>
+
+				<p class="mb-2 text-muted text-right listingReputation">
+				<i class="far fa-star"></i>
+				<i class="far fa-star"></i>
+				<i class="fas fa-star"></i>
+				<h6 class="card-subtitle mb-2 text-muted listingDistance">400 m</h6>
+				<p class="card-text listingDescription"></p>
+
+				<div class="request-state favor_pending">
+
+					<div class="alert alert-primary">
+						<h5>Looking for a provider...</h5>
+					</div>
+				</div>
+				<div class="request-state d-none favor_available">
+					<div class="alert alert-success">
+						<h5>Provider found!</h5>
+						<p>
+						<a class="alert-link performerAddress" href="#"> 0xfc7efb6bfc363ec16d560a27a006832f32f65c20</a>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						</p>
+						<a href="#" class="btn btn-secondary btn-accept-request">Accept favor!</a>
+					</div>
+				</div>
+			</div>
+		</div>
+</html>
