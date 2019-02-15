@@ -1,8 +1,6 @@
 # Favor
 
-We want to create a DApp that would allow people to exchange favors — small tasks completed by a person in close nexus to a requestor
-Users register what favors they need fulfilled and what services they can provide in form of FVR smart contracts
-
+(todo: descritpion)
 
 # Prerequisites
 

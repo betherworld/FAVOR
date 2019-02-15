@@ -149,8 +149,9 @@ App = {
         // // todo
         console.log("Not implemented");
         // // examples:
-        $(document).on('click', '.btn-demo-buy-token', App.demoBuyToken);
-        $(document).on('click', '.btn-demo-populate-billboard', App.demoPopulateBillboard);
+        $(document).on('click', '.btn-demo-buy-token', function() {App.demoBuyToken(1);});
+        $(document).on('click', '.btn-demo-populate-billboard', function() {App.demoPopulateBillboard();} );
+        $(document).on('click', '.btn-update-billboard', function() {App.getBillboard();} );
         $(document).on('click', '.btn-get-user-balance', () => {App.getUserBalance(App.uiRenderBalance);});
         $(document).on('click', '.btn-create-request', () => {
             App.createRequest({
@@ -243,6 +244,13 @@ App = {
         return App.contracts.FavorExchange.deployed().then(function(instance) {
             instance.demoBuyToken({from: web3.eth.accounts[0], value: buy_amount});
         }).catch(App.defaultErrorHandler);
+    },
+
+    // demo: populate mock billboard
+    demoPopulateBillboard: async function() {
+        console.log("in App.demoPopulateBillboard()");
+        App.createRequest({"cost": 1, "title": "Title 1", "location": "Location 1", "description": "Description 1", "category": 1});
+        App.createOffer({"cost": 2, "title": "Title 2", "location": "Location 2", "description": "Description 2", "category": 2});
     },
 
     // resets the billboard and starts populating it
@@ -459,7 +467,7 @@ App = {
     },
 
     uiRenderErrorPage: function() {
-        // todo
+        alert('Unknown error');
     },
 
     uiRenderFavorApplication: function(favorId, data) {
