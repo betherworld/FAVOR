@@ -1,207 +1,376 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>Favors</title>
-		<link rel="stylesheet" href="css/bootstrap.min.css" >
-		<link rel="stylesheet" href="css/cover.css" >
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-		 <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" ></script>
-	</head>
 
-	<body class="text-center">
-		<div class="main-content cover-container d-flex w-100 h-100 mx-auto flex-column">
-			<header class="masthead mb-auto p-3">
-				<div class="inner">
-					<h3 class="masthead-brand">Favor</h3>
-					<nav class="nav nav-masthead justify-content-center">
-						<a class="nav-link" href="#DoAFavor">Do a Favor</a>
-						<a class="nav-link" href="#MyFavors">My Favors</a>
-						<a class="nav-link" href="#MyRequests">My Requests</a>
-						<span class="nav-link btn-get-user-balance"><span id="balance"></span><i class="far fa-smile-beam"> </i></span>
-					</nav>
-				</div>
-			</header>
+<!--
 
-		<main role="main" class="inner cover">
+todo:
+* forms, su bmit to js, handle errors
+* fox buttons height?
 
-			<div class="accept_listing page pt-5 pb-5 text-left" id="my_favors">
-				<h4 class="display-4 mt-5 mb-5">My Favors</h4>
-				<div class="card listing text-left mb-1 mt-2">
-					<div class="card-body">
-						<h5 class="card-title">Help my son write an essay</h5>
-						<p class="mb-2 text-muted text-right">1 <i class="far fa-smile-beam"></i></p>
+-->
 
-						<p class="mb-2 text-muted text-right">
-						<i class="fas fa-star"></i>
-						<i class="fas fa-star"></i>
-						<i class="fas fa-star"></i>
-						<h6 class="card-subtitle mb-2 text-muted">900 m</h6>
-						<p class="card-text"> Lorem Ipsum</p>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-						<div class="favor-state" id="favor_running">
-							<div class="alert alert-primary">
-								<h5>Ongoing...</h5>
-								<a href="#" class="btn btn-secondary">Favor completed!</a>
-								<a href="#" class="btn btn-secondary">Abort Favor!</a>
-							</div>
-						</div>
-					</div>
-				</div>
-					<div class="request">
-					</div>
+	<title>Favor Exchange</title>
 
+	<!-- Bootstrap CSS CDN -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
+	<!-- jQuery CDN - Slim version (=without AJAX) -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<!-- Bootstrap JS -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+	<!-- Popper.JS -->
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script> -->
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="style.css">
+	<!-- Custom JS -->
+	<script src="js/main.js"></script>
+
+</head>
+
+<body>
+
+<div class="container-fluid">
+	<div class="row">
+
+		<!-- Sidebar -->
+		<nav class="col-sm-4" id="sidebar">
+
+			<!-- Logo -->
+			<h1 align="center" id="side-logo"><a href="#modal-about" data-toggle="modal">Favor Exchange</a></h1>
+			<!-- Logo -->
+
+			<!-- User menu -->
+			<div>
+				<a href="#side-menu-user" class="dropdown-toggle" data-toggle="collapse" aria-expanded="false" id="side-user-name">User Name</a>
+				<ul class="collapse list-unstyled" id="side-menu-user">
+					<li>
+						<button type="button" class="btn btn-link" type="btn btn-link" data-toggle="modal" data-target="#modal-edit-user-info">Edit Info</button>
+					</li>
+					<li>
+						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#modal-buy-fvr">Balance:</button>
+						<span id="user-balance-value">0</span>
+						<span>FVR</span>
+					</li>
+					<li>
+						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#modal-new-favor">New favor</button>
+					</li>
+				</ul>
 			</div>
-			<div class="accept_listing page pt-5 pb-5 text-left" id="my_requests">
-				<h4 class="display-4 mt-5 mb-5">My Requests</h4>
-                <button class="btn btn-warning btn-demo-buy-token">Buy Demo Token</button>
-                <button class="btn btn-warning btn-demo-populate-billboard">Populate Demo Billboard</button>
-                <button class="btn btn-warning update-billboard">Update Billboard</button>
-				<h4 class="display-4 mt-5 mb-5 btn-create-request">Ask for a favor</h4>
-				<form>
-					<div class="form-group">
-						<label for="inputTitle">Title</label>
-						<input type="text" class="form-control" id="inputTitle" aria-describedby="emailHelp" placeholder="Use a short title">
-						<small id="titleHelp" class="form-text text-muted">Max 30 characters</small>
-					</div>
-					<div class="form-group">
-						<label for="inputTitle">Location</label>
-						<input type="text" class="form-control" id="inputLocation" >
-					</div>
-					<div class="form-group">
-						<label for="inputCost">inputCost</label>
-						<select class="form-control" id="inputCost">
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label for="inputCategory">Category</label>
-						<select class="form-control" id="inputCategory">
-							<option value="1">Caregiving</option>
-							<option value="2">Driving</option>
-							<option value="3">Company</option>
-							<option value="4">Physical</option>
-							<option value="5">Academic</option>
-							<option value="6">Specialized</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label for="inputDescription">Description</label>
-						<textarea class="form-control" id="inputDescription" placeholder="Give a concise description of the favor you're asking for"></textarea>
-					</div>
+			<!-- User menu -->
 
-					<div class="form-group">
-						<label for="reputationRequired">Reputation requirement</label>
-						<div class="form-group custom-radio">
-							<input type="radio" name=reputationRequired class="form-check-input" id="exampleCheck1" checked="checked">
-							<label class="form-check-label" for="exampleCheck1"><i class="far fa-star"></i> <i class="far fa-star"></i> <i class="fas fa-star"></i></label>
-						</div>
-						<div class="form-group custom-radio">
-							<input type="radio" name=reputationRequired class="form-check-input" id="exampleCheck1">
-							<label class="form-check-label" for="exampleCheck1"><i class="far fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i></label>
-						</div>
-						<div class="form-group custom-radio">
-							<input type="radio" name=reputationRequired class="form-check-input" id="exampleCheck1">
-							<label class="form-check-label" for="exampleCheck1"><i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i></label>
-						</div>
-					</div>
-					<button type="createListing" class="btn btn-favor">Create favor request</button>
-				</form>
-			</div>
+			<!-- Search menu -->
+			<div>
+				<a href="#side-menu-search" class="dropdown-toggle" data-toggle="collapse" aria-expanded="false">Search</a>
+				<ul class="collapse list-unstyled" id="side-menu-search">
 
-			<div class="apply_for_listing page pt-5 pb-5 text-left" id="apply_for_favor">
-					<h4 class="display-4 mt-5 mb-5">Favor</h4>
-			</div>
-
-			<div class="create_listing page pt-5 pb-5" id="request_favor">
-
-
-			</div>
-
-			<div class="open_listings page pt-5 pb-5" id="do_a_favor">
-				<h4 class="display-4 mt-5 mb-5">Do someone a Favor!</h4>
-				<!-- Listings go here -->
-			</div>
-
-		</main>
-
-
-			</div>
-			<script src="js/main.js"></script>
-			<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-			<!-- Include all compiled plugins (below), or include individual files as needed -->
-			<script src="js/bootstrap.min.js"></script>
-			<script src="js/web3.min.js"></script>
-			<script src="js/truffle-contract.js"></script>
-		</body>
-
-	<div id="listingTemplate" class="d-none">
-		<div class="card listing text-left mb-1 mt-2 page">
-			<div class="card-body">
-				<h5 class="card-title listingTitle" >Water my plants</h5>
-				<p class="mb-2 text-muted text-right listingPrice">1 <i class="far fa-smile-beam"></i></p>
-
-				<p class="mb-2 text-muted text-right listingReputation">
-				<i class="far fa-star"></i>
-				<i class="far fa-star"></i>
-				<i class="fas fa-star"></i>
-				<h6 class="card-subtitle mb-2 text-muted listingDistance">400 m</h6>
-				<p class="card-text listingDescription"></p>
-				<a href="#Apply/" class="card-link btn btn-favor">I'll do this!</a>
-			</div>
-		</div>
-	</div>
-	<div id="favorApplicationTemplate" class="d-none">
-		<div class="card listing text-left mb-1 mt-2 page">
-			<div class="card-body">
-				<h5 class="card-title listingTitle" >Water my plants</h5>
-				<p class="mb-2 text-muted text-right listingPrice">1 <i class="far fa-smile-beam"></i></p>
-
-				<p class="mb-2 text-muted text-right listingReputation">
-				<i class="far fa-star"></i>
-				<i class="far fa-star"></i>
-				<i class="fas fa-star"></i>
-				<h6 class="card-subtitle mb-2 text-muted listingDistance">400 m</h6>
-				<p class="card-text listingDescription"></p>
-				<a href="#Apply/" class="card-link btn btn-favor">Apply!</a>
-			</div>
-		</div>
-	</div>
-	<div id="RequestTemplate" class="d-none">
-		<div class="card listing text-left mb-1 mt-2 page">
-			<div class="card-body">
-				<h5 class="card-title listingTitle" >Water my plants</h5>
-				<p class="mb-2 text-muted text-right listingPrice">1 <i class="far fa-smile-beam"></i></p>
-
-				<p class="mb-2 text-muted text-right listingReputation">
-				<i class="far fa-star"></i>
-				<i class="far fa-star"></i>
-				<i class="fas fa-star"></i>
-				<h6 class="card-subtitle mb-2 text-muted listingDistance">400 m</h6>
-				<p class="card-text listingDescription"></p>
-
-				<div class="request-state favor_pending">
-
-					<div class="alert alert-primary">
-						<h5>Looking for a provider...</h5>
-					</div>
-				</div>
-				<div class="request-state d-none favor_available">
-					<div class="alert alert-success">
-						<h5>Provider found!</h5>
-						<p>
-						<a class="alert-link performerAddress" href="#"> 0xfc7efb6bfc363ec16d560a27a006832f32f65c20</a>
-						<i class="fas fa-star"></i>
-						<i class="fas fa-star"></i>
-						<i class="fas fa-star"></i>
+					<!-- Filter by type -->
+					<li id="side-menu-search-type">
+						<p>Type:
+							<select>
+								<option value="search-type-all">Everything</option>
+								<option value="search-type-req">Requests</option>
+								<option value="search-type-off">Offers</option>
+								<option value="search-type-my-req">My requests</option>
+								<option value="search-type-my-off">My offers</option>
+							</select>
 						</p>
-						<a href="#" class="btn btn-secondary btn-accept-request">Accept favor!</a>
-					</div>
-				</div>
+					</li>
+					<!-- Filter by type -->
+
+					<!-- Filter by category -->
+					<li id="side-menu-search-cat">
+						<p>Category:
+							<select>
+								<option value="search-cat-all">all</option>
+								<!-- todo: populate from js -->
+								<option value="search-cat-1">cat-1</option>
+								<option value="search-cat-2">cat-2</option>
+								<option value="search-cat-3">cat-3</option>
+							</select>
+						</p>
+					</li>
+					<!-- Filter by category -->
+
+					<!-- Filter by distance -->
+					<li id="side-menu-search-dist">
+						<p>
+							<div>Distance:</div>
+							<div>from <input type="number" name="search-dist-from" min="0" max="100" value="0" id="search-dist-from"></div>
+							<div>to <input type="number" name="search-dist-to" min="0" max="100" value="100" id="search-dist-to"></div>
+						</p>
+						<!-- Distance slider -->
+						<div id="search-dist-slider-range"></div>
+					</li>
+					<!-- Filter by distance -->
+
+					<!-- Filter by cost -->
+					<li id="side-menu-search-cost">
+						<p>
+							<div>Cost:</div>
+							<div>from <input type="number" name="search-cost-from" min="0" max="100" value="0" id="search-cost-from"></div>
+							<div>to <input type="number" name="search-cost-to" min="0" max="100" value="100" id="search-cost-to"></div>
+						</p>
+						<!-- Cost slider -->
+						<div id="search-cost-slider-range"></div>
+					</li>
+					<!-- Filter by cost -->
+
+					<!-- Sort order -->
+					<li id="side-menu-search-sort">
+						<p>
+							Sort by:
+							<select>
+								<option value="sort-title-a-z">Title A&ndash;Z</option>
+								<option value="sort-title-z-a">Title Z&ndash;A</option>
+								<option value="sort-cat-a-z">Category A&ndash;Z</option>
+								<option value="sort-cat-z-a">Category Z&ndash;A</option>
+								<option value="sort-dist-asc">Distance &uarr;</option>
+								<option value="sort-dist-dsc">Distance &darr;</option>
+								<option value="sort-cost-asc">Cost &uarr;</option>
+								<option value="sort-cost-dsc">Cost &darr;</option>
+							</select>
+						</p>
+					</li>
+
+					<!-- Sort order: user favors -->
+					<li>
+						<label>
+							<input type="checkbox" name="sort-user-first" value="sort-user-first" id="sort-user-first">
+							Show My Favors First
+						</label>
+					</li>
+				</ul>
+			</div>
+			<!-- Search menu -->
+
+		</nav>
+		<!-- Sidebar -->
+
+		<!-- Page Content -->
+		<div class="col-sm-8" id="content">
+			<h1 align="center">Favors</h1>
+			<div id="favor-list">
+				<!-- dynamically generated list of favors goes here -->
 			</div>
 		</div>
+		<!-- Page Content -->
+
+	</div>
+</div>
+
+<!-- Footer -->
+<div class="footer font-small">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3"><a href="http://www.coss.ethz.ch/education/BETH.html">BETH: Blockchain School for Sustianability</a></div>
+			<div class="col-sm-3"><a href="https://blockchain.ethz.ch/blockchain-news/2019/02/beth-blockchain-school-for-sustainability.html">BETH 2019</a></div>
+			<div class="col-sm-3"><a href="https://github.com/betherworld/FAVOR">Original GitHub Repository</a></div>
+			<div class="col-sm-3"><a href="https://github.com/Ivan-Sergeyev/FAVOR">Forked GitHub Repository</a></div>
+		</div>
+	</div>
+</div>
+<!-- Footer -->
+
+</body>
+
+
+<!-- Favor template -->
+<div class="favor" id="insert-favor-id" hidden>
+	<div class="container-fluid">
+
+		<h3 class="favor-title">Favor Title</h3>
+
+		<div class="row">
+			<div class="favor-category col-sm-6">
+				<span>Category:</span>
+				<span>Category Name</span>
+			</div>
+			<div class="favor-location col-sm-6">
+				<span>Location:</span>
+				<span>Location Name</span>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="favor-provider col-sm-6">
+				Provider:
+				<a href="#insert-provider-id">Provider's Name</a>
+			</div>
+			<div class="favor-client col-sm-6">
+				Client:
+				<a href="#insert-client-id">Client's Name</a>
+			</div>
+		</div>
+
+		<div class="favor-description">
+			<p>Favor Description</p>
+			<p>Favor Description</p>
+			<p>Favor Description</p>
+		</div>
+
+		<div class="row">
+			<div class="favor-cost col-sm-6" align="center">
+				<span>Cost:<span>
+				<span class="favor-cost-value">0</span>
+				<span>FVR<span>
+			</div>
+			<button class="btn col-sm-6 favor-button-accept" type="button"b>Accept</button>
+			<button class="btn col-sm-6 favor-button-accept" type="button" hidden>Delete</button>
+			<button class="btn col-sm-6 favor-button-cancel" type="button" hidden>Cancel</button>
+			<button class="btn col-sm-6 favor-button-complete" type="button" hidden>Complete</button>
+		</div>
+
+	</div>
+</div>
+<!-- Favor template -->
+
+
+<!-- Modals -->
+
+<!-- About modal -->
+<div class="modal fade" role="dialog" id="modal-about">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">About</h4>
+			</div>
+
+			<div class="modal-body">
+				About statement from GitHub.
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- About modal -->
+
+<!-- Edit user info modal -->
+<div class="modal fade" role="dialog" id="modal-edit-user-info">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Edit User Info</h4>
+			</div>
+
+			<div class="modal-body">
+				<!-- todo: rows -->
+				<div>
+					Name:
+					<input type="text" name="edit-user-name" value="Previous User Name" id="edit-user-name">
+				</div>
+				<div>
+					Contact info:
+					<input type="text" name="edit-user-contact" value="Previous User Contacts" id="edit-user-contact">
+				</div>
+				<div>
+					Default Location:
+					<input type="text" name="edit-user-location" value="Previous User Location" id="edit-user-location">
+				</div>
+				<div>
+					Public encription key:
+					<input type="text" name="edit-user-public-key" value="Previous User Public Key" id="edit-user-public-key">
+					<button type="button" class="btn" id="btn-gen-keys">Generate</button>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success" data-dismiss="modal" id="btn-user-info-save">Save</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal" id="btn-user-info-close">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Edit user info modal -->
+
+<!-- New favor modal -->
+<div class="modal fade" role="dialog" id="modal-new-favor">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">New Favor</h4>
+			</div>
+
+			<div class="modal-body">
+				<!-- todo: rows -->
+				<div>
+					Type:
+					<label class="radio-inline">
+						<input type="radio" name="new-favor-type" checked>Reqeust
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="new-favor-type">Offer
+					</label>
+				</div>
+				<div>
+					Title:
+					<input type="text" name="new-favor-title" value="" id="new-favor-title">
+				</div>
+				<div>
+					Category:
+					<select>
+						<option value="search-cat-all">all</option>
+						<!-- todo: populate from js -->
+						<option value="search-cat-1">cat-1</option>
+						<option value="search-cat-2">cat-2</option>
+						<option value="search-cat-3">cat-3</option>
+					</select>
+				</div>
+				<div>
+					Location:
+					<input type="text" name="new-favor-location" value="" id="new-favor-location">
+				</div>
+				<div>
+					Description:
+					<input type="text" name="new-favor-description" value="" id="new-favor-desc">
+				</div>
+				<div>
+					Cost:
+					<input type="number" name="new-favor-cost" value="" min="0" id="new-favor-cost">
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success" data-dismiss="modal" id="btn-new-favor-create">Create</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- New favor modal -->
+
+<!-- Buy FVR modal -->
+<div class="modal fade" role="dialog" id="modal-buy-fvr">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Demo only: buy FVR</h4>
+			</div>
+
+			<div class="modal-body">
+				<div align="center">
+					<input type="number" value="0" min="0" id="buy-fvr-val">
+					<button type="button" class="btn btn-warning" id="btn-buy-fvr">Buy</button>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Buy FVR modal -->
+
+
+<!-- Modals -->
+
+
 </html>

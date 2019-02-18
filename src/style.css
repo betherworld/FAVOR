@@ -1,0 +1,27 @@
+#sidebar {
+    background: #D3D3D3;
+    /*color: #fff;*/
+    position: relative;
+}
+
+#content {
+    background: #ADD8E6;
+    /*color: #fff;*/
+}
+
+.footer {
+    background: #003366;
+    color: white;
+    text-align: center;
+    width: 100%;
+}
+
+.favor-button-new-request{
+    vertical-align: middle;
+}
+
+.favor{
+    border-style: solid;
+    margin: 10px;
+    outline-width: thin;
+}
