@@ -3,176 +3,180 @@
 
 <!--
 
-todo:
-* forms, su bmit to js, handle errors
+todo
+* forms, submit to js, handle errors
 * fox buttons height?
 
 -->
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Favor Exchange</title>
+    <title>Favor Exchange</title>
 
-	<!-- Bootstrap CSS CDN -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-	<!-- jQuery CDN - Slim version (=without AJAX) -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<!-- Bootstrap JS -->
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-	<!-- Popper.JS -->
-	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script> -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
-	<!-- Custom CSS -->
-	<link rel="stylesheet" href="style.css">
-	<!-- Custom JS -->
-	<script src="js/main.js"></script>
+    <!-- Web3, truffle -->
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+
+    <!-- Custom -->
+    <link rel="stylesheet" href="style.css">
+    <script src="js/main.js"></script>
 
 </head>
 
 <body>
 
 <div class="container-fluid">
-	<div class="row">
+    <div class="row">
 
-		<!-- Sidebar -->
-		<nav class="col-sm-4" id="sidebar">
+        <!-- Sidebar -->
+        <nav class="col-sm-4" id="sidebar">
 
-			<!-- Logo -->
-			<h1 align="center" id="side-logo"><a href="#modal-about" data-toggle="modal">Favor Exchange</a></h1>
-			<!-- Logo -->
+            <!-- Logo -->
+            <h1 align="center" id="side-logo"><a href="#modal-about" data-toggle="modal">Favor Exchange</a></h1>
+            <!-- Logo -->
 
-			<!-- User menu -->
-			<div>
-				<a href="#side-menu-user" class="dropdown-toggle" data-toggle="collapse" aria-expanded="false" id="side-user-name">User Name</a>
-				<ul class="collapse list-unstyled" id="side-menu-user">
-					<li>
-						<button type="button" class="btn btn-link" type="btn btn-link" data-toggle="modal" data-target="#modal-edit-user-info">Edit Info</button>
-					</li>
-					<li>
-						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#modal-buy-fvr">Balance:</button>
-						<span id="user-balance-value">0</span>
-						<span>FVR</span>
-					</li>
-					<li>
-						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#modal-new-favor">New favor</button>
-					</li>
-				</ul>
-			</div>
-			<!-- User menu -->
+            <!-- User menu -->
+            <div>
+                <a href="#side-menu-user" class="dropdown-toggle" data-toggle="collapse" aria-expanded="false" id="side-user-name">User Name</a>
+                <ul class="collapse list-unstyled" id="side-menu-user">
+                    <li>
+                        <button type="button" class="btn btn-link" onclick="App.modalEditUserOpen()">Edit Info</button>
+                    </li>
+                    <li>
+                        <button type="button" class="btn btn-link" onclick="App.modalBalanceOpen()">Balance</button>
+                        <span id="user-balance-value">0</span>
+                        <span>FVR</span>
+                    </li>
+                    <li>
+                        <button type="button" class="btn btn-link" onclick="App.modalNewFavorOpen()">New favor</button>
+                    </li>
+                </ul>
+            </div>
+            <!-- User menu -->
 
-			<!-- Search menu -->
-			<div>
-				<a href="#side-menu-search" class="dropdown-toggle" data-toggle="collapse" aria-expanded="false">Search</a>
-				<ul class="collapse list-unstyled" id="side-menu-search">
+            <!-- Search menu -->
+            <div>
+                <a href="#side-menu-search" class="dropdown-toggle" data-toggle="collapse" aria-expanded="false">Search</a>
+                <ul class="collapse list-unstyled" id="side-menu-search">
 
-					<!-- Filter by type -->
-					<li id="side-menu-search-type">
-						<p>Type:
-							<select>
-								<option value="search-type-all">Everything</option>
-								<option value="search-type-req">Requests</option>
-								<option value="search-type-off">Offers</option>
-								<option value="search-type-my-req">My requests</option>
-								<option value="search-type-my-off">My offers</option>
-							</select>
-						</p>
-					</li>
-					<!-- Filter by type -->
+                    <!-- Filter by type -->
+                    <li id="side-menu-search-type">
+                        Type
+                        <select>
+                            <option value="search-type-all">Everything</option>
+                            <option value="search-type-req">Requests</option>
+                            <option value="search-type-off">Offers</option>
+                            <option value="search-type-my-req">My requests</option>
+                            <option value="search-type-my-off">My offers</option>
+                        </select>
+                    </li>
+                    <!-- Filter by type -->
 
-					<!-- Filter by category -->
-					<li id="side-menu-search-cat">
-						<p>Category:
-							<select>
-								<option value="search-cat-all">all</option>
-								<!-- todo: populate from js -->
-								<option value="search-cat-1">cat-1</option>
-								<option value="search-cat-2">cat-2</option>
-								<option value="search-cat-3">cat-3</option>
-							</select>
-						</p>
-					</li>
-					<!-- Filter by category -->
+                    <br>
 
-					<!-- Filter by distance -->
-					<li id="side-menu-search-dist">
-						<p>
-							<div>Distance:</div>
-							<div>from <input type="number" name="search-dist-from" min="0" max="100" value="0" id="search-dist-from"></div>
-							<div>to <input type="number" name="search-dist-to" min="0" max="100" value="100" id="search-dist-to"></div>
-						</p>
-						<!-- Distance slider -->
-						<div id="search-dist-slider-range"></div>
-					</li>
-					<!-- Filter by distance -->
+                    <!-- Filter by category -->
+                    <li>
+                        Category
+                            <select id="side-menu-search-cat">
+                                <!-- populated from js -->
+                            </select>
+                    </li>
+                    <!-- Filter by category -->
 
-					<!-- Filter by cost -->
-					<li id="side-menu-search-cost">
-						<p>
-							<div>Cost:</div>
-							<div>from <input type="number" name="search-cost-from" min="0" max="100" value="0" id="search-cost-from"></div>
-							<div>to <input type="number" name="search-cost-to" min="0" max="100" value="100" id="search-cost-to"></div>
-						</p>
-						<!-- Cost slider -->
-						<div id="search-cost-slider-range"></div>
-					</li>
-					<!-- Filter by cost -->
+                    <br>
 
-					<!-- Sort order -->
-					<li id="side-menu-search-sort">
-						<p>
-							Sort by:
-							<select>
-								<option value="sort-title-a-z">Title A&ndash;Z</option>
-								<option value="sort-title-z-a">Title Z&ndash;A</option>
-								<option value="sort-cat-a-z">Category A&ndash;Z</option>
-								<option value="sort-cat-z-a">Category Z&ndash;A</option>
-								<option value="sort-dist-asc">Distance &uarr;</option>
-								<option value="sort-dist-dsc">Distance &darr;</option>
-								<option value="sort-cost-asc">Cost &uarr;</option>
-								<option value="sort-cost-dsc">Cost &darr;</option>
-							</select>
-						</p>
-					</li>
+                    <!-- Filter by distance -->
+                    <li id="side-menu-search-dist">
+                        <div>Distance</div>
+                        <div>from <input type="number" name="search-dist-from" min="0" max="100" value="0" id="search-dist-from"></div>
+                        <div>to <input type="number" name="search-dist-to" min="0" max="100" value="100" id="search-dist-to"></div>
+                        <!-- feature: distance double slider -->
+                    </li>
+                    <!-- Filter by distance -->
 
-					<!-- Sort order: user favors -->
-					<li>
-						<label>
-							<input type="checkbox" name="sort-user-first" value="sort-user-first" id="sort-user-first">
-							Show My Favors First
-						</label>
-					</li>
-				</ul>
-			</div>
-			<!-- Search menu -->
+                    <br>
 
-		</nav>
-		<!-- Sidebar -->
+                    <!-- Filter by cost -->
+                    <li id="side-menu-search-cost">
+                        <div>Cost</div>
+                        <div>from <input type="number" name="search-cost-from" min="0" max="100" value="0" id="search-cost-from"></div>
+                        <div>to <input type="number" name="search-cost-to" min="0" max="100" value="100" id="search-cost-to"></div>
+                        <!-- feature: cost double slider -->
+                    </li>
+                    <!-- Filter by cost -->
 
-		<!-- Page Content -->
-		<div class="col-sm-8" id="content">
-			<h1 align="center">Favors</h1>
-			<div id="favor-list">
-				<!-- dynamically generated list of favors goes here -->
-			</div>
-		</div>
-		<!-- Page Content -->
+                    <br>
 
-	</div>
+                    <!-- Sort order -->
+                    <li id="side-menu-search-sort">
+                        Sort by
+                        <select>
+                            <option value="sort-title-a-z">Title A&ndash;Z</option>
+                            <option value="sort-title-z-a">Title Z&ndash;A</option>
+                            <option value="sort-cat-a-z">Category A&ndash;Z</option>
+                            <option value="sort-cat-z-a">Category Z&ndash;A</option>
+                            <option value="sort-dist-asc">Distance &uarr;</option>
+                            <option value="sort-dist-dsc">Distance &darr;</option>
+                            <option value="sort-cost-asc">Cost &uarr;</option>
+                            <option value="sort-cost-dsc">Cost &darr;</option>
+                        </select>
+                    </li>
+                    <!-- Sort order -->
+
+                    <br>
+
+                    <!-- Sort order user favors -->
+                    <li>
+                        <input type="checkbox" name="sort-user-first" value="sort-user-first" id="sort-user-first">
+                        <label for="sort-user-first">Show My Favors First</label>
+                    </li>
+
+                    <button type="button" class="btn btn-link" onclick="App.searchApply()">Apply</button>>
+                </ul>
+            </div>
+            <!-- Search menu -->
+
+        </nav>
+        <!-- Sidebar -->
+
+        <!-- Page Content -->
+        <div class="col-sm-8" id="content">
+            <h1 align="center">Favors</h1>
+            <div id="billboard">
+                <!-- populated from js -->
+            </div>
+        </div>
+        <!-- Page Content -->
+
+    </div>
 </div>
 
 <!-- Footer -->
 <div class="footer font-small">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-3"><a href="http://www.coss.ethz.ch/education/BETH.html">BETH: Blockchain School for Sustianability</a></div>
-			<div class="col-sm-3"><a href="https://blockchain.ethz.ch/blockchain-news/2019/02/beth-blockchain-school-for-sustainability.html">BETH 2019</a></div>
-			<div class="col-sm-3"><a href="https://github.com/betherworld/FAVOR">Original GitHub Repository</a></div>
-			<div class="col-sm-3"><a href="https://github.com/Ivan-Sergeyev/FAVOR">Forked GitHub Repository</a></div>
-		</div>
-	</div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <a href="https://blockchain.ethz.ch/blockchain-news/2019/02/beth-blockchain-school-for-sustainability.html">BETH: Blockchain School for Sustianability</a>
+            </div>
+            <div class="col-sm-6">
+                GitHub repositories:
+                <div class="row">
+                    <div class="col-sm-4"><a href="https://github.com/betherworld/FAVOR">Original Repository</a></div>
+                    <div class="col-sm-4"><a href="https://github.com/betherworld/FAVOR">Final Submission for BETH19</a></div>
+                    <div class="col-sm-4"><a href="https://github.com/Ivan-Sergeyev/FAVOR">Fork With This Web Client</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Footer -->
 
@@ -180,52 +184,67 @@ todo:
 
 
 <!-- Favor template -->
-<div class="favor" id="insert-favor-id" hidden>
-	<div class="container-fluid">
+<div class="favor" id="favor-template" hidden>
+    <div class="container-fluid">
 
-		<h3 class="favor-title">Favor Title</h3>
+        <h3 class="favor-title">Favor Title</h3>
+        <!-- feature: button to open modal with detailed information -->
 
-		<div class="row">
-			<div class="favor-category col-sm-6">
-				<span>Category:</span>
-				<span>Category Name</span>
-			</div>
-			<div class="favor-location col-sm-6">
-				<span>Location:</span>
-				<span>Location Name</span>
-			</div>
-		</div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-6">Category</div>
+                    <div class="col-sm-6 favor-category">Category name</div>
+                    <!-- feature: button to search for this category -->
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-6">Location</div>
+                    <div class="col-sm-6 favor-location">Location name</div>
+                    <!-- feature: button to search by distance -->
+                </div>
+            </div>
+        </div>
 
-		<div class="row">
-			<div class="favor-provider col-sm-6">
-				Provider:
-				<a href="#insert-provider-id">Provider's Name</a>
-			</div>
-			<div class="favor-client col-sm-6">
-				Client:
-				<a href="#insert-client-id">Client's Name</a>
-			</div>
-		</div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-6">Provider</div>
+                    <div class="col-sm-6 favor-provider">Provider's name</div>
+                    <!-- feature: button to open modal with user's info -->
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-6">Client</div>
+                    <div class="col-sm-6 favor-client">Client's name</div>
+                    <!-- feature: button to open modal with user's info -->
+                </div>
+            </div>
+        </div>
 
-		<div class="favor-description">
-			<p>Favor Description</p>
-			<p>Favor Description</p>
-			<p>Favor Description</p>
-		</div>
+        <div class="favor-description">
+            Favor Description
+        </div>
 
-		<div class="row">
-			<div class="favor-cost col-sm-6" align="center">
-				<span>Cost:<span>
-				<span class="favor-cost-value">0</span>
-				<span>FVR<span>
-			</div>
-			<button class="btn col-sm-6 favor-button-accept" type="button"b>Accept</button>
-			<button class="btn col-sm-6 favor-button-accept" type="button" hidden>Delete</button>
-			<button class="btn col-sm-6 favor-button-cancel" type="button" hidden>Cancel</button>
-			<button class="btn col-sm-6 favor-button-complete" type="button" hidden>Complete</button>
-		</div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-6">Cost</div>
+                    <div class="col-sm-6">
+                        <span class="favor-cost">0</span>
+                        <span>FVR<span>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-success col-sm-6 favor-accept" onclick="App.favorAccept(this)">Accept</button>
+            <button type="button" class="btn btn-danger col-sm-6 favor-delete" onclick="App.favorDelete(this)" hidden>Delete</button>
+            <button type="button" class="btn btn-danger col-sm-6 favor-vote-cancel" onclick="App.favorVoteCancel(this)" hidden>Cancel</button>
+            <button type="button" class="btn btn-success col-sm-6 favor-vote-done" onclick="App.favorVoteDone(this)" hidden>Done</button>
+        </div>
 
-	</div>
+    </div>
 </div>
 <!-- Favor template -->
 
@@ -234,141 +253,163 @@ todo:
 
 <!-- About modal -->
 <div class="modal fade" role="dialog" id="modal-about">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">About</h4>
-			</div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">About</h4>
+            </div>
 
-			<div class="modal-body">
-				About statement from GitHub.
-			</div>
+            <div class="modal-body">
+                Todo: copy about statement from GitHub.
+                <!-- todo: add about -->
+            </div>
 
-			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- About modal -->
 
 <!-- Edit user info modal -->
-<div class="modal fade" role="dialog" id="modal-edit-user-info">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">Edit User Info</h4>
-			</div>
+<div class="modal fade" role="dialog" id="modal-edit-user">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit User Info</h4>
+            </div>
 
-			<div class="modal-body">
-				<!-- todo: rows -->
-				<div>
-					Name:
-					<input type="text" name="edit-user-name" value="Previous User Name" id="edit-user-name">
-				</div>
-				<div>
-					Contact info:
-					<input type="text" name="edit-user-contact" value="Previous User Contacts" id="edit-user-contact">
-				</div>
-				<div>
-					Default Location:
-					<input type="text" name="edit-user-location" value="Previous User Location" id="edit-user-location">
-				</div>
-				<div>
-					Public encription key:
-					<input type="text" name="edit-user-public-key" value="Previous User Public Key" id="edit-user-public-key">
-					<button type="button" class="btn" id="btn-gen-keys">Generate</button>
-				</div>
-			</div>
+            <div class="modal-body">
 
-			<div class="modal-footer">
-				<button type="button" class="btn btn-success" data-dismiss="modal" id="btn-user-info-save">Save</button>
-				<button type="button" class="btn btn-danger" data-dismiss="modal" id="btn-user-info-close">Close</button>
-			</div>
-		</div>
-	</div>
+                <div class="row">
+                    <div class="col-sm-3">Name</div>
+                    <div class="col-sm-9"><input type="text" id="edit-user-name"></div>
+                </div>
+
+                <br>
+
+                <div class="row">
+                    <div class="col-sm-3">Location</div>
+                    <div class="col-sm-9"><input type="text" id="edit-user-location"></div>
+                </div>
+
+                <br>
+
+                <div class="row">
+                    <div class="col-sm-3">Contact info</div>
+                    <div class="col-sm-9"><input type="text" id="edit-user-contact"></div>
+                </div>
+
+                <br>
+
+                <div class="row">
+                    <div class="col-sm-3">Public key</div>
+                    <div class="col-sm-9">
+                        <input type="text" id="edit-user-public-key">
+                        <button type="button" class="btn" id="btn-gen-keys" onclick="App.modalGenerateEncryptionKeys()" hidden>Generate</button>
+                        <!-- feature: generate encryption key pair -->
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="App.modalEditUserSave()" id="btn-edit-user-save">Save</button>
+                <button type="button" class="btn btn-danger" onclick="App.modalEditUserClose()" id="btn-edit-user-close">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Edit user info modal -->
 
+<!-- View user info modal -->
+<!-- feature -->
+<!-- View user info modal -->
+
 <!-- New favor modal -->
 <div class="modal fade" role="dialog" id="modal-new-favor">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">New Favor</h4>
-			</div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">New Favor</h4>
+            </div>
 
-			<div class="modal-body">
-				<!-- todo: rows -->
-				<div>
-					Type:
-					<label class="radio-inline">
-						<input type="radio" name="new-favor-type" checked>Reqeust
-					</label>
-					<label class="radio-inline">
-						<input type="radio" name="new-favor-type">Offer
-					</label>
-				</div>
-				<div>
-					Title:
-					<input type="text" name="new-favor-title" value="" id="new-favor-title">
-				</div>
-				<div>
-					Category:
-					<select>
-						<option value="search-cat-all">all</option>
-						<!-- todo: populate from js -->
-						<option value="search-cat-1">cat-1</option>
-						<option value="search-cat-2">cat-2</option>
-						<option value="search-cat-3">cat-3</option>
-					</select>
-				</div>
-				<div>
-					Location:
-					<input type="text" name="new-favor-location" value="" id="new-favor-location">
-				</div>
-				<div>
-					Description:
-					<input type="text" name="new-favor-description" value="" id="new-favor-desc">
-				</div>
-				<div>
-					Cost:
-					<input type="number" name="new-favor-cost" value="" min="0" id="new-favor-cost">
-				</div>
-			</div>
+            <div class="modal-body">
 
-			<div class="modal-footer">
-				<button type="button" class="btn btn-success" data-dismiss="modal" id="btn-new-favor-create">Create</button>
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
+                <div class="row">
+                    <div class="col-sm-3">Type</div>
+                    <div class="col-sm-9">
+                        <input type="radio" name="new-favor-type" id="new-favor-type-req">
+                        <label for="new-favor-type-req">Request</label>
+                        <input type="radio" name="new-favor-type" id="new-favor-type-off">
+                        <label for="new-favor-type-off">Offer</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3">Title</div>
+                    <div class="col-sm-9"><input type="text" value="" id="new-favor-title"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3">Category</div>
+                    <div class="col-sm-9">
+                        <select id="new-favor-cat">
+                            <!-- populated from js -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3">Location</div>
+                    <div class="col-sm-9"><input type="text" value="" id="new-favor-location"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3">Description</div>
+                    <div class="col-sm-9"><input type="text" value="" id="new-favor-desc"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3">Cost</div>
+                    <div class="col-sm-9"><input type="number" value="0" min="0" id="new-favor-cost"></div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="App.modalNewFavorCreate()">Create</button>
+                <button type="button" class="btn btn-danger" onclick="App.modalNewFavorClose()">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- New favor modal -->
 
 <!-- Buy FVR modal -->
 <div class="modal fade" role="dialog" id="modal-buy-fvr">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">Demo only: buy FVR</h4>
-			</div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Demo only buy FVR</h4>
+            </div>
 
-			<div class="modal-body">
-				<div align="center">
-					<input type="number" value="0" min="0" id="buy-fvr-val">
-					<button type="button" class="btn btn-warning" id="btn-buy-fvr">Buy</button>
-				</div>
-			</div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-3"></div>
+                    <input type="number" class="col-sm-3" value="0" min="0" id="buy-fvr-val">
+                    <button type="button" class="btn btn-warning col-sm-3" onclick="App.modalBalanceDemoBuy()" id="btn-buy-fvr">Buy</button>
+                </div>
+            </div>
 
-			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Buy FVR modal -->
-
 
 <!-- Modals -->
 

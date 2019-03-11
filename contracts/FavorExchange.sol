@@ -17,8 +17,8 @@ contract FavorExchange {
 
         // public personal information
         bytes32 name;
-        bytes32 public_key;
         bytes32 contact_info;
+        bytes32 public_key;
     }
 
     // stores information about a favor
@@ -66,7 +66,7 @@ contract FavorExchange {
 
     event FavorCreated(bytes32 favor_id);
 
-    event FavorAccepted(bytes32 favor_id);
+    event FavorMatched(bytes32 favor_id, address user_addr);
 
     event FavorVoteCancel(bytes32 favor_id, address user_addr);
     event FavorCancel(bytes32 favor_id);
@@ -107,15 +107,10 @@ contract FavorExchange {
         emit BalanceChanged(_to_addr, users[_to_addr].balance);
     }
 
-    // gets participating user's public information
-    function getFavorUserInfo(bytes32 _favor_id, address _user_addr) external view returns (bytes32, bytes32, bytes32) {
-        // ensure that both sender and user are involved
-        require(_isUserInvolved(_favor_id, msg.sender), "No access to this favor");
-        require(_isUserInvolved(_favor_id, _user_addr), "User not involved in this favor");
-
-        // return user's information
+    // gets user's public information
+    function getUserInfo(address _user_addr) external view returns (uint, bool, bytes32, bytes32, bytes32) {
         User memory user = users[_user_addr];
-        return (user.name, user.public_key, user.contact_info);
+        return (user.balance, user.is_registered, user.name, user.public_key, user.contact_info);
     }
 
     // sets user's public information
@@ -135,8 +130,15 @@ contract FavorExchange {
     function getFavorInfo(bytes32 _favor_id) external view returns (bytes32, bytes32, address, address, uint, bytes32, bytes32, bytes32, uint) {
         Favor memory favor = billboard[_favor_id];
         return (favor.prev_favor_id, favor.next_favor_id,
-                favor.client_addr, favor.provider_addr, favor.cost,
-                favor.title, favor.location, favor.description, favor.category);
+            favor.client_addr, favor.provider_addr, favor.cost,
+            favor.title, favor.location, favor.description, favor.category);
+    }
+
+    // gets favor vote flags
+    function getFavorVoteFlags(bytes32 _favor_id) external view returns (bool, bool, bool, bool) {
+        Favor memory favor = billboard[_favor_id];
+        return (favor.client_vote_done, favor.provider_vote_done,
+            favor.client_vote_cancel, favor.provider_vote_cancel);
     }
 
     // creates a favor request
@@ -186,7 +188,7 @@ contract FavorExchange {
 
         // accept request
         billboard[_favor_id].provider_addr = msg.sender;
-        emit FavorAccepted(_favor_id);
+        emit FavorMatched(_favor_id, msg.sender);
     }
 
     // accepts a favor offer
@@ -206,7 +208,7 @@ contract FavorExchange {
 
         // accept offer
         billboard[_favor_id].client_addr = msg.sender;
-        emit FavorAccepted(_favor_id);
+        emit FavorMatched(_favor_id, msg.sender);
     }
 
     // votes for favor cancel
@@ -223,7 +225,6 @@ contract FavorExchange {
         } else {
             billboard[_favor_id].provider_vote_cancel = true;
         }
-        emit FavorVoteCancel(_favor_id, msg.sender);
 
         // check if both parties voted
         if(billboard[_favor_id].client_vote_cancel && billboard[_favor_id].provider_vote_cancel) {
@@ -238,7 +239,10 @@ contract FavorExchange {
 
             // finalize cancel
             emit FavorCancel(_favor_id);
+            return;
         }
+
+        emit FavorVoteCancel(_favor_id, msg.sender);
     }
 
     // votes for favor completion
@@ -255,7 +259,6 @@ contract FavorExchange {
         } else {
             billboard[_favor_id].provider_vote_done = true;
         }
-        emit FavorVoteDone(_favor_id, msg.sender);
 
         // check if both parties voted
         if(billboard[_favor_id].client_vote_done && billboard[_favor_id].provider_vote_done) {
@@ -270,7 +273,10 @@ contract FavorExchange {
 
             // finalize completion
             emit FavorDone(_favor_id);
+            return;
         }
+
+        emit FavorVoteDone(_favor_id, msg.sender);
     }
 
     // ==================== private functions ====================

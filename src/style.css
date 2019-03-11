@@ -1,18 +1,16 @@
-#sidebar {
-    background: #D3D3D3;
-    /*color: #fff;*/
+#sidebar{
+    background: #d3d3d3;
     position: relative;
 }
 
-#content {
-    background: #ADD8E6;
-    /*color: #fff;*/
+#content{
+    background: #daedf4;
 }
 
-.footer {
+.footer{
     background: #003366;
     color: white;
-    text-align: center;
+    /*text-align: center;*/
     width: 100%;
 }
 
@@ -24,4 +22,44 @@
     border-style: solid;
     margin: 10px;
     outline-width: thin;
+}
+
+.favor-unmatched{
+    background-color: #e9e9b4;  /*less saturated light yellow*/
+}
+
+.favor-user-unmatched{
+    background-color: #ffff9e;  /*light yellow*/
+}
+
+.favor-matched{
+    background-color: #d2d2f1;  /*less saturated light blue*/
+}
+
+.favor-user-matched{
+    background-color: #c4c4ff;  /*light blue*/
+}
+
+.favor-vote-cancel{
+    background-color: #edc3c3;  /*less saturated light red*/
+}
+
+.favor-user-other-vote-cancel{
+    background-color: #ff7676;  /*bright red*/
+}
+
+.favor-user-self-vote-cancel{
+    background-color: #ffb1b1;  /*light red*/
+}
+
+.favor-vote-done{
+    background-color: #d2f1d2;  /*less saturated light green*/
+}
+
+.favor-user-other-vote-done{
+    background-color: #89ff89;  /*bright green*/
+}
+
+.favor-user-self-vote-done{
+    background-color: #c4ffc4;  /*light green*/
 }
