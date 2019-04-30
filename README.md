@@ -1,8 +1,7 @@
-# Favor
+# Favor Exchange
 
 We want to create a DApp that would allow people to exchange favors — small tasks completed by a person in close nexus to a requestor
 Users register what favors they need fulfilled and what services they can provide in form of FVR smart contracts
-
 
 # Prerequisites
 
@@ -29,7 +28,7 @@ cd BETH19
 ## Using ganache (default)
 
 1. run Ganache (default settings: port 127.0.0.1:7545 and network id 5777)
-2. set up metamask account by copying the seed phrase from Ganache, change network to custom RPC and set the _New RPC URL_ field to Ganache url address (default: http://127.0.0.1:7545)
+2. set up metamask account: copy the seed phrase from Ganache, change network to custom RPC, and set the _New RPC URL_ field to Ganache url address (default: http://127.0.0.1:7545)
 3. in project root directory, execute the following:
 ```
 truffle compile --all
@@ -41,7 +40,7 @@ npm run dev
 ## Using ganache-cli
 
 1. run ganache-cli (default settings: port 127.0.0.1:8545)
-2. set up metamask account by copying the seed phrase from ganache-cli, change network to custom RPC and set the _New RPC URL_ field to ganache-cli url address (default: http://127.0.0.1:8545)
+2. set up metamask account: copy the seed phrase from ganache-cli, change network to custom RPC, and set the _New RPC URL_ field to ganache-cli url address (default: http://127.0.0.1:8545)
 3. in project root directory, execute the following:
 ```
 truffle compile --all
@@ -52,3 +51,4 @@ npm run dev
 # Troubleshooting
 
 * If there are compilation/deployment errors, try removing the build directory by executing `rm -rf build`
+* Double-check the versions of

@@ -170,7 +170,7 @@ App = {
 
         App.contracts.FavorExchange.deployed().then(function(instance) {
             // get favor info
-            return instance.getFavorInfo.call(favor_id);
+            return instance.favorGetInfo.call(favor_id);
         }).then(function(result) {
             // assemble favor json
             var favor_json = App.contractFavorRawToJSON(result, favor_id);
@@ -351,7 +351,7 @@ App = {
         // note conversion to bytes32
         console.log("in App.contractCreateFavor(", favor_json, ")");
         return App.contracts.FavorExchange.deployed().then(function(instance) {
-            var instance_call = (favor_json.type == "request" ? instance.createRequest : instance.createOffer);
+            var instance_call = (favor_json.type == "request" ? instance.favorRequestCreate : instance.favorOfferCreate);
             return instance_call(
                 favor_json.cost,
                 web3.fromUtf8(favor_json.title),
@@ -376,7 +376,7 @@ App = {
     contractAcceptRequest: function(favor_id) {
         console.log("in App.contractAcceptRequest(", favor_id, ")");
         return App.contracts.FavorExchange.deployed().then(function(instance) {
-            return instance.acceptRequest(favor_id);
+            return instance.favorRequestAccept(favor_id);
         }).catch(function(err) {console.log(err.message);});
     },
 
@@ -384,7 +384,7 @@ App = {
     contractAcceptOffer: function(favor_id) {
         console.log("in App.contractAcceptOffer(", favor_id, ")");
         return App.contracts.FavorExchange.deployed().then(function(instance) {
-            return instance.acceptOffer(favor_id);
+            return instance.favorOfferAccept(favor_id);
         }).catch(function(err) {console.log(err.message);});
     },
 
@@ -392,7 +392,7 @@ App = {
     contractVoteCancel: function(favor_id) {
         console.log("in App.contractVoteCancel(", favor_id, ")");
         return App.contracts.FavorExchange.deployed().then(function(instance) {
-            return instance.voteCancel(favor_id);
+            return instance.favorVoteCancel(favor_id);
         }).catch(function(err) {console.log(err.message);});
     },
 
@@ -400,7 +400,7 @@ App = {
     contractVoteDone: function(favor_id) {
         console.log("in App.contractVoteDone(", favor_id, ")");
         return App.contracts.FavorExchange.deployed().then(function(instance) {
-            return instance.voteDone(favor_id);
+            return instance.favorVoteDone(favor_id);
         }).catch(function(err) {console.log(err.message);});
     },
 
@@ -420,7 +420,7 @@ App = {
     contractGetUserInfo: function(user_addr, callback_func) {
         console.log("in App.contractGetUserInfo(", user_addr, ")");
         return App.contracts.FavorExchange.deployed().then(function(instance) {
-            return instance.getUserInfo.call(user_addr);
+            return instance.userGetInfo.call(user_addr);
         }).then(function(result) {
             return callback_func(result);
         }).catch(function(err) {console.log(err.message);});
@@ -431,7 +431,7 @@ App = {
         // note conversion from utf8 to bytes32
         console.log("in App.contractSetUserInfo(", user_info_json, ")");
         return App.contracts.FavorExchange.deployed().then(function(instance) {
-            return instance.setUserInfo(
+            return instance.userSetInfo(
                 web3.fromUtf8(user_info_json.name),
                 web3.fromUtf8(user_info_json.public_key),
                 web3.fromUtf8(user_info_json.contact_info));
@@ -449,7 +449,7 @@ App = {
 
         return App.contracts.FavorExchange.deployed().then(function(instance) {
             // get id of first favor in list
-            return instance.getFavorsHeadId.call();
+            return instance.favorGetListHeadId.call();
         }).then(function(result) {
             console.log("billboard_head_id", result);
             // start populating the billboard
@@ -462,10 +462,10 @@ App = {
         console.log("in App.contractAddFavorToBillboard(", favor_id, ")");
 
         return App.contracts.FavorExchange.deployed().then(async function(instance) {
-            return [await instance.getFavorInfo.call(favor_id), instance];
+            return [await instance.favorGetInfo.call(favor_id), instance];
         }).then(async function(result) {
             console.log(result);
-            return [result[0], await result[1].getFavorVoteFlags.call(favor_id)];
+            return [result[0], await result[1].favorGetFlags.call(favor_id)];
         }).then(function(result) {
             console.log(result);
             var favor = App.contractFavorRawToJSON(result[0].concat(result[1]), favor_id);
