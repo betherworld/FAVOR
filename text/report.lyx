@@ -28,6 +28,7 @@
 \output_sync 0
 \bibtex_command default
 \index_command default
+\float_placement h
 \paperfontsize default
 \spacing single
 \use_hyperref false
@@ -174,6 +175,13 @@ In this report, we will first go over the challenges and solutions we faced
  We finalize this report with a brief conclusion and outlook.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Challenges and Solutions
 \end_layout
@@ -294,6 +302,13 @@ In summary, we can say that we have faced most of the above problems for
  the first time, which allowed us to learn a lot about token economics and
  sustainability and gain hands-on experience with the Ethereum Blockchain
  as well as basic UX design.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -542,6 +557,13 @@ earn
  Since the botter is likely to expend a large amount of resources on this
  brute force method, we consider these countermeasures to be sufficient
  to disincentivize malicious behavior.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -840,6 +862,13 @@ n, the users should have the ability to access their and other users' full
 \end_layout
 
 \end_deeper
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Conclusion and Outlook
 \end_layout
